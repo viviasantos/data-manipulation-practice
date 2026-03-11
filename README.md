@@ -20,11 +20,7 @@ Description: This project focuses on exploring and analyzing a restaurant’s or
 - Determine most popular categories.
 - Find top 5 highest-spend orders.
 - View details of the highest-spend order.
-
-🧠 Final Question:
-- How much was the most expensive order in the dataset?
-
-
+- 
 🛠 Tools & Technologies Used:
 - MySQL — main tool for querying and analysis.
   
