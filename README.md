@@ -22,7 +22,7 @@ Description: This project focuses on exploring and analyzing a restaurant’s or
 - View details of the highest-spend order.
 - 
 🛠 Tools & Technologies Used:
-- MySQL — main tool for querying and analysis.
+- MySQL
   
 📈 What I Learned:
 - How to structure SQL queries for real analytical workflows.
