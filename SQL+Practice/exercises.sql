@@ -322,6 +322,24 @@ SELECT o. order_id, o.order_date, 'Archieve' AS status
 FROM orders o
 WHERE order_date < '2019-01-01';
 
+-- Union rows between two differents tables
+SELECT c.first_name
+FROM customers c
+UNION
+SELECT s.name
+FROM shippers s;
+
+-- Create a new field with pre-define values
+SELECT customer_id, first_name, points,
+CASE
+WHEN points < 2000 THEN 'Bronze'
+WHEN points BETWEEN 2001 AND 3000 THEN 'Silver'
+WHEN points BETWEEN 3001 AND 4000 THEN 'Gold'
+ELSE 'other'
+END AS type
+FROM customers;
+
+
 
 
 
