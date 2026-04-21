@@ -1,63 +1,42 @@
--- =========================
--- CREATE TABLE
--- =========================
-CREATE TABLE employees (
-    id SERIAL,
-    name TEXT,
-    salary NUMERIC,
-    join_date DATE
-);
+-- STRING FUNCTION
+/*
+UPPER(text)        -- convert to uppercase
+LOWER(text)        -- convert to lowercase
+INITCAP(text)      -- capitalize first letter of each word
 
--- =========================
--- INSERT DATA
--- =========================
-INSERT INTO employees (name, salary, join_date) VALUES
-('john', 1234.567, '2023-01-01'),
-('ANA', -2000.345, '2022-06-15'),
-('Mike', 1500.789, '2021-03-10');
+-- TRIM FUNCTIONS
+TRIM(text)         -- remove spaces from both sides
+LTRIM(text)        -- remove spaces from left side
+RTRIM(text)        -- remove spaces from right side
 
--- =========================
--- SINGLE-ROW FUNCTIONS
--- =========================
-SELECT 
-    id,
-    name,
+-- CONCATENATION
+CONCAT(a, b, c)    -- join strings
+||                 -- string concatenation operator
 
-    -- STRING FUNCTIONS
-    UPPER(name) AS upper_name,
-    LOWER(name) AS lower_name,
-    LENGTH(name) AS name_length,
-    CONCAT(name, ' works here') AS sentence,
+-- LENGTH FUNCTIONS
+LENGTH(text)       -- number of characters
+CHAR_LENGTH(text)  -- same as LENGTH
 
-    -- NUMERIC FUNCTIONS
-    salary,
-    ROUND(salary, 2) AS rounded_salary,
-    ABS(salary) AS absolute_salary,
-    CEIL(salary) AS ceil_salary,
-    FLOOR(salary) AS floor_salary,
+-- SUBSTRING FUNCTIONS
+SUBSTRING(text FROM x FOR y)  -- extract part of string
 
-    -- DATE FUNCTIONS
-    join_date,
-    CURRENT_DATE AS today,
-    AGE(join_date) AS experience,
-    CURRENT_DATE - join_date AS days_worked,
+-- REPLACE FUNCTIONS
+REPLACE(text, old, new)        -- replace part of string
 
-    -- CONVERSION
-    CAST(salary AS INTEGER) AS salary_int
+-- SEARCH FUNCTIONS
+POSITION(substring IN text)    -- find position of substring
 
-FROM employees;
+-- PARTIAL EXTRACTION
+LEFT(text, n)      -- first n characters
+RIGHT(text, n)     -- last n characters
 
--- =========================
--- MULTIPLE-ROW (AGGREGATE) FUNCTIONS
--- =========================
-SELECT 
-    COUNT(*) AS total_employees,
-    SUM(salary) AS total_salary,
-    AVG(salary) AS average_salary,
-    MAX(salary) AS highest_salary,
-    MIN(salary) AS lowest_salary
-FROM employees;
+-- PADDING FUNCTIONS
+LPAD(text, n, char) -- pad left
+RPAD(text, n, char) -- pad right
 
+-- OTHER
+REVERSE(text)      -- reverse string
+*/
 
 
 -- CONCAT - Combine multiple strings into one
@@ -70,7 +49,7 @@ SELECT UPPER(first_name) AS name_uppercase
 FROM customers;
 
 -- LOWER -  Convert all characters to lowercase
-SELECT LOWER(first_name) AS name_uppercase
+SELECT LOWER(first_name) AS name_lowercase
 FROM customers;
 
 -- UPPER - Convert all characters to uppercase
@@ -78,5 +57,35 @@ SELECT UPPER(first_name) AS name_uppercase
 FROM customers;
 
 -- INITCAP -  Convert the first character to uppercase and the remaining letters to lowercase
-SELECT INITCAP(first_name) AS name_uppercase
+SELECT INITCAP(first_name) 
 FROM customers;
+
+-- TRIM - Leading and trailing spaces
+SELECT TRIM(first_name) 
+FROM customers;
+
+-- LTRIM - Leading and trailing spaces Left
+SELECT LTRIM(first_name) 
+FROM customers;
+
+-- RTRIM - Leading and trailing spaces Right
+SELECT RTRIM(first_name)
+FROM customers;
+
+-- Discovering where the spaces are and and the number of characters.  
+SELECT first_name, LENGTH(first_name) AS len_name,
+LENGTH(TRIM(first_name)) AS len_trim_name,
+LENGTH(first_name) - LENGTH(TRIM(first_name)) 
+FROM customers;
+-- Or use WHERE to discovering
+-- WHERE first_name <> TRIM(first_name);
+
+-- REPLACE - specific character with a new character
+SELECT country, REPLACE(country, 'UK','MODIFIED') AS country_modified
+FROM customers;
+
+--
+
+
+
+
