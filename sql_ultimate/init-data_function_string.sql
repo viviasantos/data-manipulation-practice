@@ -1,4 +1,4 @@
--- STRING FUNCTION
+-- STRING FUNCTION - 
 /*
 UPPER(text)        -- convert to uppercase
 LOWER(text)        -- convert to lowercase
@@ -38,7 +38,7 @@ RPAD(text, n, char) -- pad right
 REVERSE(text)      -- reverse string
 */
 
-
+-- STRING FUNCTIONS MANIPULATIONS
 -- CONCAT - Combine multiple strings into one
 -- Exercise - Show a list of customers first names together with country in one column
 SELECT CONCAT(first_name,' ', country) AS name_country
@@ -80,11 +80,30 @@ FROM customers;
 -- Or use WHERE to discovering
 -- WHERE first_name <> TRIM(first_name);
 
--- REPLACE - specific character with a new character
+-- REPLACE - Specific character with a new character
 SELECT country, REPLACE(country, 'UK','MODIFIED') AS country_modified
 FROM customers;
 
---
+-- STRING FUNCTIONS CALCULATION
+-- LEN - CaulcuLate the lenght 
+-- Exercise - Calculate the length of each customers first name
+SELECT first_name, LENGTH(first_name) AS length_firstname
+FROM customers;
+
+-- STRING FUNCTIONS EXTRACTION
+-- LEFT AND RIGHT - Specific number of characters from the value start LEFT OR RIGHT
+SELECT first_name, 
+LEFT(first_name,2) AS left_firstname,
+RIGHT(first_name,2) AS right_firstname
+FROM customers;
+
+-- SUBSTRING - Extracts a part of string at a especified position
+SELECT first_name, 
+LENGTH(first_name)AS len_firstname,
+SUBSTRING(TRIM(first_name),2,LENGTH(first_name))
+FROM customers;
+
+
 
 
 
