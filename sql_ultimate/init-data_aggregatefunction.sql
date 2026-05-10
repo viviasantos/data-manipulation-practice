@@ -52,9 +52,10 @@ SELECT
 orderid,
 orderdate,
 productid,
+sales,
 SUM(sales) OVER(PARTITION BY productid) AS total_sales_products
 FROM sales.orders
-ORDER BY orderid;
+ORDER BY productid;
 
 
 -- Exercise -- Find the total sales across all orders 
@@ -134,6 +135,8 @@ sales,
 SUM(sales) OVER(PARTITION BY orderstatus ORDER BY orderdate
 ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS total_sales
 FROM sales.orders;
+
+
 
 
 
