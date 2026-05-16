@@ -25,7 +25,7 @@ ORDER BY customerid;
 -- 1 STEP -- Find the total sales per customer
 -- 2 STEP -- Find the last order date per customer
 -- 3 STEP -- Rank Customers based on total sales per customer
-
+-- 4 STEP -- Segment customers based on their total sales
 
 -- 1 STEP -- Find the total sales per customer
 WITH CTE_total_sales AS (
@@ -52,6 +52,18 @@ total_sales,
 RANK() OVER(ORDER BY total_sales DESC) AS customer_rank
 FROM CTE_total_sales
 )
+-- 4 STEP -- Segment customers based on their total sales (Nested CTE)
+, CTE_customer_segment AS(
+SELECT
+customerid,
+total_sales,
+CASE 
+WHEN total_sales > 100 THEN 'High'
+WHEN total_sales > 80 THEN 'Medium'
+ELSE 'Low'
+END AS customer_segment
+FROM CTE_total_sales
+)
 
 -- Main query
 SELECT 
@@ -60,7 +72,8 @@ c.firstname,
 c.lastname,
 cts.total_sales,
 clo.last_order,
-srank. customer_rank
+srank. customer_rank,
+cseg.customer_segment
 FROM sales.customers AS c
 LEFT JOIN CTE_total_sales AS cts
 ON cts.customerid = c.customerid
@@ -68,6 +81,8 @@ LEFT JOIN CTE_last_order AS clo
 ON clo.customerid = c.customerid
 LEFT JOIN CTE_sales_rank AS srank
 ON srank.customerid = c.customerid
+LEFT JOIN CTE_customer_segment AS cseg
+ON cseg.customerid = c.customerid
 ORDER BY customerid;
 
 
