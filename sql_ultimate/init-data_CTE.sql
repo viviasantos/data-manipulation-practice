@@ -85,4 +85,46 @@ LEFT JOIN CTE_customer_segment AS cseg
 ON cseg.customerid = c.customerid
 ORDER BY customerid;
 
+-- CTE Recursive
+-- Generate a sequence of number from 1 to 20
+
+WITH RECURSIVE CTE_series AS(
+-- Anchor query
+ SELECT 
+ 1 AS mynumber
+ UNION ALL 
+ -- Recursive query
+ SELECT
+ mynumber + 1
+ FROM CTE_series
+ WHERE mynumber < 20
+)
+-- Main query
+SELECT *
+FROM CTE_series
+
+-- Task -- Show the employee hierarchy by displaying each employee's level within the orgazination
+WITH RECURSIVE CTE_emp_hierarch AS (
+-- Anchor query
+SELECT
+employeeid,
+Managerid,
+1 AS level
+FROM sales.employees
+WHERE managerid IS NULL
+UNION ALL
+-- Recursive query
+SELECT
+e.employeeid,
+e.Managerid,
+level + 1
+FROM sales.employees AS e
+INNER JOIN CTE_emp_hierarch AS ceh
+ON e.managerid = ceh.managerid
+)
+
+-- Main query
+SELECT*
+FROM CTE_emp_hierarch;
+
 
